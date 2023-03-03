@@ -52,5 +52,9 @@ public class WindowManager {
         }
 
     }
+    public void switchToNewTab(){
+        var windows = driver.getWindowHandles();
+        windows.forEach(driver.switchTo()::window);
+    }
 
 }

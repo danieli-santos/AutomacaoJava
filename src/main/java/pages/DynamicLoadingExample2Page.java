@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,15 +26,14 @@ public class DynamicLoadingExample2Page {
           wait.until(ExpectedConditions.presenceOfElementLocated(loadedText2));
 
     }
-//    public boolean isStartButtonDisplayed(){
-//        return driver.findElement(starButton2).isDisplayed();
-//    }
+   public boolean isStartButtonDisplayed(){
+       return driver.findElement(starButton2).isDisplayed();
+   }
     public String getLoadedText(){
 //          WebDriverWait wait = new WebDriverWait(driver, 10);
 //          wait.until(ExpectedConditions.invisibilityOf(driver.findElement(loadedText2)));
 
-
         return driver.findElement(loadedText2).getText();
-
     }
+
 }
