@@ -7,6 +7,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pages.HomePage;
+import utils.WindowManager;
 
 
 public class BaseTests {
@@ -23,6 +24,7 @@ public class BaseTests {
 
         homePage = new HomePage(driver);
     }
+    
     @BeforeMethod
     public void goHome(){
         driver.get("https://the-internet.herokuapp.com/");
@@ -33,6 +35,10 @@ public class BaseTests {
     public void tearDown(){
         System.out.println("Fim!!");
         driver.quit();//ele fechará qualquer uma das janelas abertas e concluirá esta sessão.
+    }
+
+    public WindowManager getWindowManager(){
+        return new WindowManager(driver);
     }
 
 }
