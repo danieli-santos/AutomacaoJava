@@ -84,7 +84,7 @@ public class EventReporter implements WebDriverEventListener {
 
     @Override
     public void afterClickOn(WebElement webElement, WebDriver webDriver) {
-
+        
     }
 
     @Override

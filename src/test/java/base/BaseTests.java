@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Driver;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -19,6 +21,7 @@ import org.testng.annotations.BeforeMethod;
 import com.google.common.collect.ForwardingSortedSetMultimap;
 import com.google.common.io.Files;
 
+import net.bytebuddy.jar.asm.Opcodes;
 import pages.HomePage;
 import utils.EventReporter;
 import utils.WindowManager;
@@ -45,9 +48,10 @@ public class BaseTests {
     @BeforeClass
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
-        driver = new EventFiringWebDriver(new ChromeDriver());
+        driver = new EventFiringWebDriver(new ChromeDriver(getChromeOptions()));
         driver.register(new EventReporter());
         goHome();
+        setCookie();
       //  driver.manage().window().maximize();
 
         //
@@ -102,5 +106,22 @@ public class BaseTests {
     public WindowManager getWindowManager(){
         return new WindowManager(driver);
     }
+
+    private ChromeOptions getChromeOptions(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("disable-infobars");
+        //options.setHeadless(true);//significa é que ele executará nossos testes sem realmente abrir nosso navegador.
+        return options;
+    }
+
+    private void setCookie(){
+        Cookie cookie = new Cookie.Builder("tau", "123")
+                .domain("the-internet.herokuapp.com")
+                .build();
+        driver.manage().addCookie(cookie);
+        driver.manage().deleteCookieNamed("optimizelySegments");
+    }
+
+    
 
 }
